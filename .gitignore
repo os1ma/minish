@@ -1,3 +1,9 @@
+# 拡張子なしのファイル
+*
+!*/
+!*.*
+!Makefile
+
 # Prerequisites
 *.d
 
@@ -50,8 +56,3 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-
-# 拡張子なしのファイル
-*
-!*/
-!*.*
