@@ -4,13 +4,14 @@ CFLAGS = -Wall -O2
 
 TARGET = minish
 
-SRCS = minish.c
+SRCS = minish.c $(YYC)
 OBJS = $(SRCS:.c=.o)
+
 LEX  = lex.l
 YYC  = $(LEX:.l=.yy.c)
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $^
+	$(CC) -lfl -o $@ $^
 
 $(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) -c $(SRCS)
