@@ -5,6 +5,9 @@
 !Makefile
 !Dockerfile
 
+# flex
+*.yy.c
+
 # Prerequisites
 *.d
 
