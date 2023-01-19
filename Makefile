@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Wall -O2
+CFLAGS = -Wall -W -O2
 
 TARGET = minish
 
