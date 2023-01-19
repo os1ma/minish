@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #include "lex.h"
+#include "builtin.h"
 
 #define MAX_ARG 10
 
@@ -45,12 +46,15 @@ int main(void)
 
     if (!strcmp(command, "echo"))
     {
-      for (int i = 1; i < cmd_argc; i++)
-      {
-        printf("%s", cmd_argv[i]);
-        printf(" ");
-      }
-      printf("\n");
+      builtin_echo(cmd_argc, cmd_argv);
+    }
+    else if (!strcmp(command, "true"))
+    {
+      builtin_true(cmd_argc, cmd_argv);
+    }
+    else if (!strcmp(command, "false"))
+    {
+      builtin_false(cmd_argc, cmd_argv);
     }
     else
     {
