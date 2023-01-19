@@ -41,7 +41,12 @@ int main(void)
     // scan args
     while (next_token() != TOKEN_LF)
     {
-      cmd_argv[cmd_argc] = strdup(yytext);
+      if ((cmd_argv[cmd_argc] = strdup(yytext)) == NULL)
+      {
+        perror("strdup error");
+        exit(1);
+      }
+
       cmd_argc++;
     }
 

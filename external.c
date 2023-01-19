@@ -14,10 +14,20 @@ static char *path = "/bin/";
 static char *to_full_path(char *command)
 {
   char *full_path = strdup(path);
+  if (full_path == NULL)
+  {
+    perror("strdup error");
+    exit(1);
+  }
 
   full_path = (char *)realloc(
       full_path,
       sizeof(char) * (strlen(path) + strlen(command) + 1));
+  if (full_path == NULL)
+  {
+    perror("realloc error");
+    exit(1);
+  }
 
   return strcat(full_path, command);
 }
@@ -64,7 +74,8 @@ int run_external(int argc, char *argv[])
 
     execve(full_path, exec_argv, NULL);
 
-    // Do not reach. exit suppress compiler warning
+    // error
+    perror("execve error");
     exit(1);
   }
   else
