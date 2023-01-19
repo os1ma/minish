@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-extern int yylex(void);
-extern char *yytext;
+#include "lex.h"
 
 char *next_token(void)
 {

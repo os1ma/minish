@@ -1,5 +1,5 @@
 %{
-  #define WORD 1
+#include "lex.h"
 %}
 
 WHITESPACE [ \t]
@@ -9,5 +9,5 @@ WORD       [^ \t\n]+
 %%
 {WHITESPACE} ;
 {LF}         ;
-{WORD}       return WORD;
+{WORD}       return TOKEN_WORD;
 %%
