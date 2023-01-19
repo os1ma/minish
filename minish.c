@@ -5,28 +5,52 @@
 
 #include "lex.h"
 
-char *next_token(void)
+#define MAX_ARG 10
+
+TokenType next_token(void)
 {
-  if (yylex() == 0)
+  TokenType type = yylex();
+
+  if (type == 0)
   {
     fprintf(stderr, "yylex failed");
     exit(1);
   }
 
-  return yytext;
+  return type;
 }
 
-int main()
+int cmd_argc;
+char *cmd_argv[MAX_ARG];
+
+int main(void)
 {
   while (true)
   {
     printf("> ");
 
-    char *command = next_token();
+    cmd_argc = 0;
+    while (next_token() != TOKEN_LF)
+    {
+      cmd_argv[cmd_argc] = strdup(yytext);
+      cmd_argc++;
+    }
+
+    if (cmd_argc == 0)
+    {
+      continue;
+    }
+
+    char *command = cmd_argv[0];
 
     if (!strcmp(command, "echo"))
     {
-      printf("%s\n", next_token());
+      for (int i = 1; i < cmd_argc; i++)
+      {
+        printf("%s", cmd_argv[i]);
+        printf(" ");
+      }
+      printf("\n");
     }
     else
     {

@@ -8,6 +8,6 @@ WORD       [^ \t\n]+
 
 %%
 {WHITESPACE} ;
-{LF}         ;
+{LF}         return TOKEN_LF;
 {WORD}       return TOKEN_WORD;
 %%
