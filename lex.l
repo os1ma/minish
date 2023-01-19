@@ -1,7 +1,13 @@
+%{
+  #define WORD 1
+%}
+
 WHITESPACE [ \t]
-WORD       [^ \t]+
+LF         \n
+WORD       [^ \t\n]+
 
 %%
-{WHITESPACE}
-{WORD}       { printf("%s\n", yytext); }
+{WHITESPACE} ;
+{LF}         ;
+{WORD}       return WORD;
 %%

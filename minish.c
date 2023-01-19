@@ -1,49 +1,38 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
-const ssize_t BUF_SIZE = 4096;
+extern int yylex(void);
+extern char *yytext;
 
-int command_len(char *buf)
+char *next_token(void)
 {
-  for (int i = 0; i < sizeof(buf); i++)
+  if (yylex() == 0)
   {
-    char c = buf[i];
-    if (c == ' ' || c == '\0' || c == '\n')
-    {
-      return i - 1;
-    }
+    fprintf(stderr, "yylex failed");
+    exit(1);
   }
 
-  return -1;
+  return yytext;
 }
 
 int main()
 {
-  char buf[BUF_SIZE];
-
-  while (1)
+  while (true)
   {
     printf("> ");
 
-    fgets(buf, sizeof(buf), stdin);
-
-    int len = command_len(buf);
-
-    char *command = (char *)malloc(sizeof(char) * (len + 1));
-    strncpy(command, buf, len + 1);
-    command[len + 1] = '\0';
+    char *command = next_token();
 
     if (!strcmp(command, "echo"))
     {
-      printf("%s", buf + len + 1);
+      printf("%s\n", next_token());
     }
     else
     {
       fprintf(stdout, "%s: command not found\n", command);
     }
-
-    free(command);
   }
 
   return 0;
