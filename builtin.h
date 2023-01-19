@@ -1,5 +1,4 @@
 #pragma once
 
-int builtin_echo(int argc, char *argv[]);
-int builtin_true(int argc, char *argv[]);
-int builtin_false(int argc, char *argv[]);
+bool is_builtin(char *command);
+int run_builtin(int argc, char *argv[]);

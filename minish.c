@@ -44,17 +44,9 @@ int main(void)
 
     char *command = cmd_argv[0];
 
-    if (!strcmp(command, "echo"))
+    if (is_builtin(command))
     {
-      builtin_echo(cmd_argc, cmd_argv);
-    }
-    else if (!strcmp(command, "true"))
-    {
-      builtin_true(cmd_argc, cmd_argv);
-    }
-    else if (!strcmp(command, "false"))
-    {
-      builtin_false(cmd_argc, cmd_argv);
+      run_builtin(cmd_argc, cmd_argv);
     }
     else
     {
