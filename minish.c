@@ -32,7 +32,11 @@ int main(void)
     printf("> ");
 
     // clear args
-    cmd_argc = 0;
+    for (; cmd_argc != 0; cmd_argc--)
+    {
+      free(cmd_argv[cmd_argc]);
+      cmd_argv[cmd_argc] = NULL;
+    }
 
     // scan args
     while (next_token() != TOKEN_LF)
@@ -49,6 +53,7 @@ int main(void)
 
     // run command
     char *command = cmd_argv[0];
+
     if (is_builtin(command))
     {
       run_builtin(cmd_argc, cmd_argv);
