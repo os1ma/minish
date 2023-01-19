@@ -4,7 +4,7 @@ CFLAGS = -Wall -W -O2
 
 TARGET = minish
 
-SRCS = minish.c builtin.c $(YYC)
+SRCS = minish.c builtin.c external.c $(YYC)
 OBJS = $(SRCS:.c=.o)
 
 LEX  = lex.l

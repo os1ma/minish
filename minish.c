@@ -5,6 +5,7 @@
 
 #include "lex.h"
 #include "builtin.h"
+#include "external.h"
 
 #define MAX_ARG 10
 
@@ -30,23 +31,31 @@ int main(void)
   {
     printf("> ");
 
+    // clear args
     cmd_argc = 0;
+
+    // scan args
     while (next_token() != TOKEN_LF)
     {
       cmd_argv[cmd_argc] = strdup(yytext);
       cmd_argc++;
     }
 
+    // no command
     if (cmd_argc == 0)
     {
       continue;
     }
 
+    // run command
     char *command = cmd_argv[0];
-
     if (is_builtin(command))
     {
       run_builtin(cmd_argc, cmd_argv);
+    }
+    else if (is_external(command))
+    {
+      run_external(cmd_argc, cmd_argv);
     }
     else
     {
