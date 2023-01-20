@@ -20,7 +20,7 @@ static char *to_full_path(char *command)
     exit(1);
   }
 
-  full_path = (char *)realloc(
+  full_path = realloc(
       full_path,
       sizeof(char) * (strlen(path) + strlen(command) + 1));
   if (full_path == NULL)
@@ -64,7 +64,7 @@ int run_external(int argc, char *argv[])
   {
     // setup child process arguments
     char **exec_argv;
-    exec_argv = (char **)calloc(sizeof(char *), argc + 1);
+    exec_argv = calloc(sizeof(char *), argc + 1);
     exec_argv[0] = full_path;
     for (int i = 1; i < argc; i++)
     {
