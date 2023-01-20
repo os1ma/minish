@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+static int builtin_exit(int argc, char *argv[]);
 static int builtin_echo(int argc, char *argv[]);
 static int builtin_true(int argc, char *argv[]);
 static int builtin_false(int argc, char *argv[]);
@@ -14,6 +15,7 @@ typedef struct
 } BuiltinCommand;
 
 static BuiltinCommand commands[] = {
+    {"exit", builtin_exit},
     {"echo", builtin_echo},
     {"true", builtin_true},
     {"false", builtin_false},
@@ -44,6 +46,14 @@ int run_builtin(int argc, char *argv[])
 
   fprintf(stderr, "%s: builtin command not found\n", argv[0]);
   exit(1);
+}
+
+static int builtin_exit(
+    __attribute__((unused)) int argc,
+    __attribute__((unused)) char *argv[])
+
+{
+  exit(0);
 }
 
 static int builtin_echo(int argc, char *argv[])
